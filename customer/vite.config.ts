@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
         exposes: {
           "./App": "./src/App.tsx",
         },
-        shared: ["react"],
+        shared: ['react', 'react-dom'],
       }),
     ],
     build: {

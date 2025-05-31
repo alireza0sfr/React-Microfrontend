@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
         remotes: {
           customer: `http://localhost:${CUSTOMER_PORT}/assets/customer.js`,
         },
-        shared: ['react'],
+        shared: ['react', 'react-dom', 'react-router-dom'],
       }),
     ],
     build: {
