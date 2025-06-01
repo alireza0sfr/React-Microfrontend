@@ -8,9 +8,9 @@ export default defineConfig({
     supportFile: 'tests/e2e/support/index.ts',
     specPattern: "**/*.feature",
     async setupNodeEvents(
-      on: Cypress.PluginEvents,
-      config: Cypress.PluginConfigOptions
-    ): Promise<Cypress.PluginConfigOptions> {
+      on,
+      config
+    ) {
       // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
       await addCucumberPreprocessorPlugin(on, config)
 
