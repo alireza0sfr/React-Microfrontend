@@ -23,7 +23,19 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "src/*"
+      ],
+      "components/*": [
+        "src/infrastructure/components/*"
+      ],
+      "assets/*": [
+        "src/presentation/assets/*"
+      ]
+    }
   },
   "include": [
     "src",
