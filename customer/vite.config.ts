@@ -9,6 +9,9 @@ export default defineConfig(({ mode }) => {
   const CUSTOMER_PORT = Number(env.VITE_CUSTOMER_PORT) || 3001
 
   return {
+    test: {
+      environment: 'jsdom',
+    },
     server: {
       port: CUSTOMER_PORT,
     },

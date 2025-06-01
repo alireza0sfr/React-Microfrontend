@@ -2,6 +2,8 @@ import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
 import type { CustomerState } from "~/application/interfaces/stores/customer-store"
+import CustomerValidator from "~/infrastructure/plugins/validator"
+
 
 export const useCustomerStore = create<CustomerState>()(
   persist(
@@ -33,6 +35,36 @@ export const useCustomerStore = create<CustomerState>()(
       getCustomerById: (id) => {
         const { customers } = get()
         return customers.find(c => c.id === id)
+      },
+      /**
+       * Validates a customer.
+       * @param customer - The customer to validate.
+       * @returns An object containing a boolean success value and an array of error messages.
+       */
+      validate(customer) {
+
+        const { customers } = get()
+
+        const validator = new CustomerValidator()
+        let errors: string[] = []
+
+        const validateNotEmpty = validator.validateNotEmpty(customer)
+
+        if (!validateNotEmpty.success)
+          return {
+            success: false,
+            errors: validateNotEmpty.errors
+          }
+
+        errors = errors.concat(validator.validateUnique(customers, customer).errors)
+        errors = errors.concat(validator.validateEmail(customer).errors)
+        errors = errors.concat(validator.validateBankAccount(customer).errors)
+        errors = errors.concat(validator.validatePhoneNumber(customer).errors)
+
+        return {
+          success: errors.length === 0,
+          errors: errors
+        }
       },
       /**
       * Clears store states.
