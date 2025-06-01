@@ -2,6 +2,8 @@ import { it, describe, beforeEach, expect, expectTypeOf } from 'vitest'
 import { useCustomerStore } from '~/infrastructure/stores/customer-store'
 import { customer } from '../../mock'
 import { Customer } from '~/domain/customer'
+import { idGenerator } from '~/domain/base'
+
 describe('Store Operations', () => {
   beforeEach(() => {
     // Clear the store before each test
@@ -158,5 +160,22 @@ describe('Store Operations', () => {
     expect(result.success).toBe(false)
     expect(result.errors).toHaveLength(1)
     expect(result.errors).toContain('phoneNumber is not in a valid format.')
+  })
+
+  it('should validate customer unique fields', () => {
+    // Arrange
+    useCustomerStore.getState().addCustomer(customer)
+
+    const secondCustomer = { ...customer, id: idGenerator(), createdDate: new Date().toISOString() }
+
+    // Act
+    const result = useCustomerStore.getState().validate(secondCustomer)
+
+    // Assert
+    expect(result.success).toBe(false)
+    expect(result.errors).toHaveLength(4)
+    expect(result.errors).toContain('firstName should be unique.')
+    expect(result.errors).toContain('lastName should be unique.')
+    expect(result.errors).toContain('email should be unique.')
   })
 })
