@@ -1,7 +1,7 @@
 import { it, describe, beforeEach, expect, expectTypeOf } from 'vitest'
 import { useCustomerStore } from '~/infrastructure/stores/customer-store'
 import { customer } from '../../mock'
-
+import { Customer } from '~/domain/customer'
 describe('Store Operations', () => {
   beforeEach(() => {
     // Clear the store before each test
@@ -85,5 +85,74 @@ describe('Store Operations', () => {
     // Assert
     const result = useCustomerStore.getState().getCustomerById(customer.id)
     expect(result?.firstName).toEqual('updated')
+  })
+
+  it('should validate a customer', () => {
+    // Arrange
+    useCustomerStore.getState().addCustomer(customer)
+
+    // Act
+    const result = useCustomerStore.getState().validate(customer)
+
+    // Assert
+    expect(result.success).toBe(true)
+    expect(result.errors).toHaveLength(0)
+  })
+
+  it('should check customer required fields', () => {
+    // Arrange
+    const customerWithoutRequiredFields = new Customer()
+
+    // Act
+    const result = useCustomerStore.getState().validate(customerWithoutRequiredFields)
+
+    // Assert
+    expect(result.success).toBe(false)
+    expect(result.errors).toHaveLength(6)
+    expect(result.errors).toContain('firstName is required.')
+    expect(result.errors).toContain('lastName is required.')
+    expect(result.errors).toContain('phoneNumber is required.')
+    expect(result.errors).toContain('email is required.')
+    expect(result.errors).toContain('bankAccountNumber is required.')
+    expect(result.errors).toContain('dateOfBirth is required.')
+  })
+
+  it('should validate customer email field', () => {
+    // Arrange
+    const customerWithInvalidEmail = { ...customer, email: 'invalid-email' }
+
+    // Act
+    const result = useCustomerStore.getState().validate(customerWithInvalidEmail)
+
+    // Assert
+    expect(result.success).toBe(false)
+    expect(result.errors).toHaveLength(1)
+    expect(result.errors).toContain('email is not in a valid format.')
+  })
+
+  it('should validate customer bank account field', () => {
+    // Arrange
+    const customerWithInvalidBankAccount = { ...customer, bankAccountNumber: 'invalid-bank-account' }
+
+    // Act
+    const result = useCustomerStore.getState().validate(customerWithInvalidBankAccount)
+
+    // Assert
+    expect(result.success).toBe(false)
+    expect(result.errors).toHaveLength(1)
+    expect(result.errors).toContain('bankAccountNumber is not in a valid format.')
+  })
+
+  it('should validate customer phone number field', () => {
+    // Arrange
+    const customerWithInvalidPhoneNumber = { ...customer, phoneNumber: 'invalid-phone-number' }
+
+    // Act
+    const result = useCustomerStore.getState().validate(customerWithInvalidPhoneNumber)
+
+    // Assert
+    expect(result.success).toBe(false)
+    expect(result.errors).toHaveLength(1)
+    expect(result.errors).toContain('phoneNumber is not in a valid format.')
   })
 })
