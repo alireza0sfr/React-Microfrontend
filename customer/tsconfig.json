@@ -8,19 +8,4 @@
       "path": "./tsconfig.node.json"
     }
   ],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "dist",
-    "paths": {
-      "~/*": [
-        "src/*"
-      ],
-      "components/*": [
-        "src/infrastructure/components/*"
-      ],
-      "assets/*": [
-        "src/presentation/assets/*"
-      ],
-    },
-  }
 }

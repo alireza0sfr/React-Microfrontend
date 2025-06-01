@@ -10,8 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
+    "@cucumber/cucumber": "^11.3.0",
+    "@cypress/webpack-preprocessor": "^6.0.4",
+    "cypress": "^14.4.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "vitest": "^3.1.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -25,5 +31,12 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
     "vite": "^6.3.5"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "stepDefinitions": [
+      "tests/e2e/steps/[filepath]/**/*.{js,ts}",
+      "tests/e2e/steps/[filepath].{js,ts}"
+    ]
   }
 }
