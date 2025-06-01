@@ -2,6 +2,7 @@ import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 
 import type { CustomerState } from "~/application/interfaces/stores/customer-store"
+import { idGenerator } from '~/domain/base'
 import CustomerValidator from "~/infrastructure/plugins/validator"
 
 
@@ -13,8 +14,11 @@ export const useCustomerStore = create<CustomerState>()(
    * Adds a customer to the store.
    * @param customer - The customer to add.
    */
-      addCustomer: (customer) =>
-        set((state) => ({ customers: [...state.customers, customer] })),
+      addCustomer: (customer) => {
+        customer.id = idGenerator()
+        customer.createdDate = new Date().toISOString()
+        set((state) => ({ customers: [...state.customers, customer] }))
+      },
       /**
        * Updates a customer in the store.
        * @param customer - The customer to update.

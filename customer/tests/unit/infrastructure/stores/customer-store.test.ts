@@ -61,6 +61,10 @@ describe('Store Operations', () => {
     // Assert
     expect(useCustomerStore.getState().customers).toHaveLength(1)
     expect(useCustomerStore.getState().customers[0]).toEqual(customer)
+    expect(useCustomerStore.getState().customers[0].id).toBeDefined()
+    expect(useCustomerStore.getState().customers[0].id).not.toBe('')
+    expect(useCustomerStore.getState().customers[0].createdDate).toBeDefined()
+    expect(useCustomerStore.getState().customers[0].createdDate).not.toBe('')
   })
 
   it('should delete a customer', () => {
