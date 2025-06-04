@@ -20,10 +20,12 @@
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
     "@cucumber/cucumber": "^11.3.0",
     "@cypress/webpack-preprocessor": "^6.0.4",
+    "@tailwindcss/vite": "^4.1.8",
     "cypress": "^14.4.0",
     "google-libphonenumber": "^3.2.41",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.8",
     "vitest": "^3.1.4",
     "zustand": "^5.0.5"
   },
