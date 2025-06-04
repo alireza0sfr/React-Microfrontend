@@ -41,7 +41,7 @@ describe('validateUnique', () => {
 
     // Arrange
     const validator = new CustomerValidator()
-    const newCustomer = new Customer('jack', 'daniel', '2024561413', 'jackdaniel@gmail.com', '4155279860456', new Date(0).toString())
+    const newCustomer = new Customer('jack', 'daniel', '+493012345678', 'jackdaniel@gmail.com', '4155279860456', new Date(0).toString())
 
     // Act
     const result = validator.validateUnique([customer], newCustomer)
@@ -57,7 +57,7 @@ describe('validateUnique', () => {
 
     // Arrange
     const validator = new CustomerValidator()
-    const newCustomer = new Customer('john', 'daniel', '2024561413', 'jackdaniel@gmail.com', '4155279860456', new Date(0).toString())
+    const newCustomer = new Customer('john', 'daniel', '+493012345678', 'jackdaniel@gmail.com', '4155279860456', new Date(0).toString())
     customer.id = idGenerator()
 
     // Act

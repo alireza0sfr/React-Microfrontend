@@ -3,9 +3,12 @@ import type { IValidatorResponse } from "~/application/interfaces/plugins/valida
 
 export interface CustomerState {
   customers: Customer[]
+  formErrors: string
+  setFormErrors: (errors: string) => void
   addCustomer: (customer: Customer) => void
   updateCustomer: (customer: Customer) => void
   deleteCustomer: (id: string) => void
+  deleteAllCustomers: () => void
   getCustomerById: (id: string) => Customer | undefined
   validate: (customer: Customer) => IValidatorResponse
   flush: () => void

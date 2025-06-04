@@ -8,32 +8,32 @@ describe('useCustomer', () => {
     expect(useCustomer).toBeDefined()
   })
 
-  it('should add a valid customer', () => {
+  it('should save a valid customer', () => {
     const { result } = renderHook(() => useCustomer())
 
-    const response = result.current.addCustomer(customer)
+    const response = result.current.saveCustomer(customer, 0)
     expect(response.success).toBe(true)
     expect(response.errors).toEqual([])
   })
 
-  it('should not add an invalid customer', () => {
+  it('should not save an invalid customer', () => {
     const { result } = renderHook(() => useCustomer())
 
-    const response = result.current.addCustomer({ ...customer, email: '' })
+    const response = result.current.saveCustomer({ ...customer, email: '' }, 0)
     expect(response.success).toBe(false)
   })
 
-  it('should update a customer', () => {
+  it('should save a customer', () => {
     const { result } = renderHook(() => useCustomer())
 
-    const response = result.current.updateCustomer(customer)
+    const response = result.current.saveCustomer(customer, 0)
     expect(response.success).toBe(true)
   })
 
   it('should not update a customer with an invalid id', () => {
     const { result } = renderHook(() => useCustomer())
 
-    const response = result.current.updateCustomer({ ...customer, id: '' })
+    const response = result.current.saveCustomer({ ...customer, id: '' }, 0)
     expect(response.success).toBe(false)
   })
 

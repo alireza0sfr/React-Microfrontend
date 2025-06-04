@@ -137,53 +137,25 @@ Then("Customer should be on readonly mode", () => {
   cy.existsThe(TestIds.FullName)
 })
 
-Given("Adding multiple empty cards", () => {
+Given("Refreshing page with empty card", () => {
   init()
   cy.clickThe(TestIds.AddBtn)
-  cy.clickThe(TestIds.AddBtn)
-  cy.clickThe(TestIds.AddBtn)
   cy.existsThe('customerCard-0')
-  cy.existsThe('customerCard-1')
-  cy.existsThe('customerCard-2')
 })
 
-Then("After refreshing page empty cards should be removed", () => {
+Then("Upon refreshing page empty card should be removed", () => {
   cy.reload()
   cy.notExistsThe('customerCard-0')
-  cy.notExistsThe('customerCard-1')
-  cy.notExistsThe('customerCard-2')
 })
 
-Given("After clicking on delete with validation errors", () => {
+Given("Adding an empty card", () => {
   init()
   cy.clickThe(TestIds.AddBtn)
   cy.existsThe('customerCard-0')
-  cy.clickThe(TestIds.AddBtn)
 })
 
-Given("After clicking on deleteAll with validation errors", () => {
-  init()
-  cy.clickThe(TestIds.AddBtn)
-  cy.existsThe('customerCard-0')
-  cy.clickThe(TestIds.DeleteAllBtn)
-})
-
-Given("After clicking on add Button with validation errors", () => {
-  init()
-  cy.clickThe(TestIds.AddBtn)
-  cy.existsThe('customerCard-0')
-  cy.clickThe(TestIds.AddBtn)
-})
-
-Given("After clicking on edit button with validation errors", () => {
-  init()
-  cy.clickThe(TestIds.AddBtn)
-  cy.existsThe('customerCard-0')
-  cy.clickThe(TestIds.AddBtn)
-})
-
-Then("formErrors should disapper after with validation errors", () => {
-  cy.notExistsThe(TestIds.FormErrors)
+Then("Add Customer should be disabled", () => {
+  cy.get(`[data-test=${TestIds.AddBtn}]`).should('be.disabled')
 })
 
 Given("Adding multiple customers to delete", () => {

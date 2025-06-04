@@ -1,8 +1,8 @@
+import CustomerList from '~/presentation/components/customer/CustomerList'
+
 function App() {
   return (
-    <>
-      <h1>Customer</h1>
-    </>
+      <CustomerList />
   )
 }
 

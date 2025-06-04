@@ -32,16 +32,13 @@ Feature: Customer List
     Given Refreshing page with 1 customer on update mode
     Then Customer should be on readonly mode
 
-  Scenario: Refreshing page with empty cards
-    Given Adding multiple empty cards
-    Then After refreshing page empty cards should be removed
+  Scenario: Refreshing page with empty card
+    Given Adding an empty card
+    Then Upon refreshing page empty card should be removed
 
-  Scenario: Remove FormErrors on interactions
-    Given After clicking on delete with validation errors
-    Given After clicking on deleteAll with validation errors
-    Given After clicking on add Button with validation errors
-    Given After clicking on edit button with validation errors
-    Then formErrors should disapper after with validation errors
+  Scenario: Add Customer should be disabled when there is an editing customer
+    Given Adding an empty card
+    Then Add Customer should be disabled
 
   Scenario: Delete correct customer when multiple customer found
     Given Adding multiple customers to delete

@@ -10,6 +10,12 @@ export const useCustomerStore = create<CustomerState>()(
   persist(
     (set, get) => ({
       customers: [],
+      formErrors: '',
+      /**
+       * Sets the form errors.
+       * @param errors - The errors to set.
+       */
+      setFormErrors: (errors: string) => set({ formErrors: errors }),
       /**
    * Adds a customer to the store.
    * @param customer - The customer to add.
@@ -31,6 +37,11 @@ export const useCustomerStore = create<CustomerState>()(
        */
       deleteCustomer: (id) =>
         set((state) => ({ customers: state.customers.filter(c => c.id !== id) })),
+      /**
+       * Deletes all customers from the store.
+       */
+      deleteAllCustomers: () =>
+        set({ customers: [] }),
       /**
        * Gets a customer from the store by id.
        * @param id - The id of the customer to get.
