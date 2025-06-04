@@ -40,7 +40,7 @@ const CustomersList: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid gap-6">
+          <div className={`flex flex-col overflow-y-auto ${formErrors ? 'max-h-[calc(100vh-450px)]' : 'max-h-[calc(100vh-200px)]'} gap-6`}>
             {customers.map((customer, index) => (
               <CustomerCard
                 key={index}
