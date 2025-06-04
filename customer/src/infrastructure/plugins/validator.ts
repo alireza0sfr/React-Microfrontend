@@ -1,5 +1,6 @@
 import { Customer } from '~/domain/customer'
 import { type IValidatorResponse, ValidatorTypes } from '~/application/interfaces/plugins/validator'
+import { PhoneNumberUtil } from 'google-libphonenumber'
 
 export function isEmpty(value: string): boolean {
   return value.toString().trim() === ''
@@ -72,12 +73,19 @@ export default class CustomerValidator {
    * @returns An object containing a boolean success value and an array of error messages.
    */
   validatePhoneNumber(customer: Customer): IValidatorResponse {
-    const phoneNumberRegex = /\+?1?\s*\(?-*\.*(\d{3})\)?\.*-*\s*(\d{3})\.*-*\s*(\d{4})$/
+    const phoneUtil = PhoneNumberUtil.getInstance()
     const errors = []
 
-    if (customer.phoneNumber && !phoneNumberRegex.test(customer.phoneNumber))
-      errors.push(this.messageGenerator('phoneNumber', ValidatorTypes.ValidFormat))
-
+    if (customer.phoneNumber) {
+      try {
+        const phoneNumber = phoneUtil.parse(customer.phoneNumber)
+        if (!phoneUtil.isValidNumber(phoneNumber)) {
+          errors.push(this.messageGenerator('phoneNumber', ValidatorTypes.ValidFormat))
+        }
+      } catch (error) {
+        errors.push(this.messageGenerator('phoneNumber', ValidatorTypes.ValidFormat))
+      }
+    }
 
     return {
       success: errors.length === 0,
